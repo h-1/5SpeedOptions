@@ -13,4 +13,4 @@ http://www.flaticon.com/free-icon/number-5_1875
 
 https://chrome.google.com/webstore/detail/5-speed-options-for-html5/jgcledljkklfpfbidpfogmcihiphjibn
 
-*[Install Chrome Extension](https://chrome.google.com/webstore/detail/5-speed-options-for-html5/jgcledljkklfpfbidpfogmcihiphjibn)*
+### *[Install Chrome Extension](https://chrome.google.com/webstore/detail/5-speed-options-for-html5/jgcledljkklfpfbidpfogmcihiphjibn)*
