@@ -2,9 +2,9 @@
   "manifest_version": 2,
 
   "name": "5 Speed Options for HTML5 videos",
-  "description": "Allows users to store 5 different speed options and access them with keyboard short cuts",
+  "description": "Allows users to store 5 different speed options and access them with keyboard shortcuts",
   "version": "1.0",
-  "homepage_url": "http://path/to/homepage",
+  "homepage_url": "https://github.com/h-1/5SpeedOptions",
   "permissions": ["storage"],
   "options_page": "options.html",
   "icons": {
@@ -21,7 +21,7 @@
   },
   "content_scripts": [{
       "all_frames": true,
-      "matches": [ "http://*/*", "https://*/*", "file:///*" ],
+      "matches": [ "http://*/*", "https://*/*" ],
       "js": ["inject.js"],
       "css": [ "inject.css" ]
   }]
