@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "5 Speed Options for HTML5 videos",
+  "description": "Allows users to store 5 different speed options and access them with keyboard short cuts",
+  "version": "1.0",
+  "homepage_url": "http://path/to/homepage",
+  "permissions": ["storage"],
+  "options_page": "options.html",
+  "icons": {
+    "16": "icons/Number_5_16.png",
+    "48": "icons/Number_5_64.png",
+    "128": "icons/Number_5_128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/Number_5_16.png",
+      "48": "icons/Number_5_64.png"
+    },
+    "default_popup": "options.html"
+  },
+  "content_scripts": [{
+      "all_frames": true,
+      "matches": [ "http://*/*", "https://*/*", "file:///*" ],
+      "js": ["inject.js"],
+      "css": [ "inject.css" ]
+  }]
+}

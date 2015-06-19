@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HTML5 Video Speed Controller</title>
+    <meta charset="utf-8">
+
+    <script src="options.js" defer></script>
+    <!-- // <script src="inject.js" defer></script> -->
+
+    <!-- <link rel="stylesheet" href="inject.css"> -->
+
+    <!-- // <script src="../javascript/jquery-2.1.4.min.js"></script> -->
+  </head>
+
+  <body align="center">
+  <!--
+    <video id="myVideo" width="320" height="176" controls>
+      <source src="e.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  -->
+    <header>
+      <h1>Options</h1>
+      <p>Speed range: <strong>0.01 - 16.00</strong></p>
+      <p>Keyboard short cut: <strong>letters, numbers and . only</strong></p>
+    </header>
+
+    <div style="padding: 15px;">
+      <button id="defaultSetting">Load default settings</button>
+      <button id="currentSetting">Load current settings</button>
+    </div>
+
+    <div>
+      Speed 1:
+      <input id="speedInput1" placeholder="set speed" type="number" min="0.01" max="16.00" step="0.01" />
+      <input id="shortCut1" placeholder="set shortcut" type="text" maxlength="1" size="6" />
+    </div>
+
+    <div>
+      Speed 2:
+      <input id="speedInput2" placeholder="set speed" type="number" min="0.01" max="16.00" step="0.01" />
+      <input id="shortCut2" placeholder="set shortcut" type="text" maxlength="1" size="6" />
+    </div>
+
+    <div>
+      Speed 3:
+      <input id="speedInput3" placeholder="set speed" type="number" min="0.01" max="16.00" step="0.01" />
+      <input id="shortCut3" placeholder="set shortcut" type="text" maxlength="1" size="6" />
+    </div>
+
+    <div>
+      Speed 4:
+      <input id="speedInput4" placeholder="set speed" type="number" min="0.01" max="16.00" step="0.01" />
+      <input id="shortCut4" placeholder="set shortcut" type="text" maxlength="1" size="6" />
+    </div>
+
+    <div>
+      Speed 5:
+      <input id="speedInput5" placeholder="set speed" type="number" min="0.01" max="16.00" step="0.01" />
+      <input id="shortCut5" placeholder="set shortcut" type="text" maxlength="1" size="6" />
+    </div>
+
+    <div>
+      Display current speed:
+      <input id="displaySpeed" placeholder="set shortcut" type="text" maxlength="1" />
+    </div>
+
+    <div style="padding: 15px;">
+      <button id="save">Save</button>
+      <button id="clearSetting">Clear all settings</button>
+      <div id="saved" display="none" style="padding: 15px;"></div>
+    </div>
+  </body>
+</html>
