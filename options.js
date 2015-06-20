@@ -20,20 +20,21 @@ var shortcutsArr = [shortCut1, shortCut2, shortCut3, shortCut4, shortCut5, displ
 // Create objects for speeds and shortcuts
 var optionSettings = {
     speeds: {
-        speedInput1: 1.0,
-        speedInput2: 1.5,
-        speedInput3: 2.0,
-        speedInput4: 2.5,
-        speedInput5: 3
+        speedInput1: 1,
+        speedInput2: 2.5,
+        speedInput3: 4,
+        speedInput4: 9,
+        speedInput5: 16
     },
     shortcuts: {
         shortCut1: 'a',
-        shortCut2: 'b',
-        shortCut3: 'c',
-        shortCut4: '5',
-        shortCut5: '9',
+        shortCut2: 's',
+        shortCut3: 'd',
+        shortCut4: 'e',
+        shortCut5: 'g',
         displaySpeed: '.'
-    }
+    },
+    currentPlaybackSpeed: 1
 };
 
 // Set chrome storage
@@ -80,22 +81,15 @@ function clearAllSetting() {
 
 // Load default optionSettings
 function loadDefaultSetting() {
-    speedInput1.value = 1.0;
-    shortCut1.value = '9';
+    // Speed settings
+    for (var i = 0; i < speedsArr.length; i++) {
+        speedsArr[i].value = optionSettings.speeds[speedsArr[i].id];
+    }
 
-    speedInput2.value = 1.5;
-    shortCut2.value = '8';
-
-    speedInput3.value = 2;
-    shortCut3.value = 'a';
-
-    speedInput4.value = 2.5;
-    shortCut4.value = 's';
-
-    speedInput5.value = 4;
-    shortCut5.value = 'd';
-
-    displaySpeed.value = '.';
+    // Shortcuts settings
+    for (var i = 0; i < shortcutsArr.length; i++) {
+        shortcutsArr[i].value = optionSettings.shortcuts[shortcutsArr[i].id];
+    }
 }
 
 // Save current optionSettings

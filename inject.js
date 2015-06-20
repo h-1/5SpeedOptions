@@ -1,21 +1,21 @@
 chrome.extension.sendMessage({}, function(response) {
     var settings = {
         speeds: {
-            speedInput1: 1.0,
-            speedInput2: 1.5,
-            speedInput3: 2.0,
-            speedInput4: 2.5,
-            speedInput5: 4
+            speedInput1: 1,
+            speedInput2: 2.5,
+            speedInput3: 4,
+            speedInput4: 9,
+            speedInput5: 16
         },
         shortcuts: {
-            shortCut1: '1',
-            shortCut2: '2',
-            shortCut3: '3',
-            shortCut4: '4',
-            shortCut5: '5',
+            shortCut1: 'a',
+            shortCut2: 's',
+            shortCut3: 'd',
+            shortCut4: 'e',
+            shortCut5: 'g',
             displaySpeed: '.'
         },
-        currentPlaybackSpeed: 1.0
+        currentPlaybackSpeed: 1
     };
 
     var videoTags = document.getElementsByTagName('video');
@@ -35,7 +35,7 @@ chrome.extension.sendMessage({}, function(response) {
     var speedButtons = [speed1Button, speed2Button, speed3Button, speed4Button, speed5Button];
 
     // Retrieve data from Chrome storage
-    function getChromStorage() {
+    function getChromeStorage() {
         chrome.storage.sync.get(settings, function(storage) {
             // Retrieve shortcut settings
             Object.keys(settings.shortcuts).forEach(function (key) {
@@ -49,12 +49,13 @@ chrome.extension.sendMessage({}, function(response) {
                 // Add shortcut display next to speeds
                 // speedButtons[i].textContent = storage.speeds[Object.keys(settings.speeds)[i]] + "-" + "r";
             }
-
             settings.currentPlaybackSpeed = storage.currentPlaybackSpeed;
         });
-    }
 
-    getChromStorage();
+        chrome.storage.sync.get('currentPlaybackSpeed', function(storage) {
+            speedIndicator.textContent = storage.currentPlaybackSpeed;
+        });
+    }
 
     var readyStateCheckInterval = setInterval(initializeVideoSpeed, 10);
 
@@ -63,24 +64,16 @@ chrome.extension.sendMessage({}, function(response) {
             clearInterval(readyStateCheckInterval);
 
             settings.videoController = function(target) {
+                getChromeStorage();
+
                 this.video = target;
                 this.initializeControls();
 
-                target.addEventListener('ratechange', function(event) {
-                    if (target.readyState === 0) {
-                        return;
-                    }
-                    var speed = this.getSpeed();
-                    this.speedIndicator.textContent = speed;
-                    settings.currentPlaybackSpeed = speed;
-                    chrome.storage.sync.set(settings.currentPlaybackSpeed);
-                }.bind(this));
+                target.addEventListener('play', function(event) {
+                    target.playbackRate = Number(speedIndicator.textContent);
+                });
 
-                target.playbackRate = settings.currentPlaybackSpeed;
-            };
-
-            settings.videoController.prototype.getSpeed = function() {
-                return parseFloat(this.video.playbackRate).toFixed(2);
+                target.playbackRate = Number(speedIndicator.textContent);
             }
 
             settings.videoController.prototype.initializeControls = function() {
@@ -100,14 +93,13 @@ chrome.extension.sendMessage({}, function(response) {
 
                 this.video.parentElement.insertBefore(fragment, this.video);
 
-                speedIndicator.textContent = settings.currentPlaybackSpeed;
-                this.speedIndicator = speedIndicator;
-
                 container.addEventListener('click', function(e) {
                     for (var i = 0; i < speedButtons.length; i++) {
                         if (e.target === speedButtons[i]) {
-                            var targetSpeed = parseFloat(speedButtons[i].textContent).toFixed(2);
+                            // var targetSpeed = parseFloat(speedButtons[i].textContent).toFixed(2);
+                            var targetSpeed = Number(speedButtons[i].textContent);
                             runAction(targetSpeed);
+                            break;
                         };
                     };
 
@@ -117,8 +109,8 @@ chrome.extension.sendMessage({}, function(response) {
             }
 
             function setSpeed(v, speed) {
+                chrome.storage.sync.set({'currentPlaybackSpeed': speed});
                 v.playbackRate = speed;
-                settings.currentPlaybackSpeed = speed;
                 speedIndicator.textContent = speed;
             }
 
@@ -131,7 +123,7 @@ chrome.extension.sendMessage({}, function(response) {
             document.addEventListener('keypress', function(event) {
                 // Ignore keypress event if typing in an input box
                 if (document.activeElement.nodeName === 'INPUT' && document.activeElement.getAttribute('type') === 'text') {
-                  return false;
+                    return false;
                 }
 
                 // if uppercase letter pressed, check for lowercase key code
