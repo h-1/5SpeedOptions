@@ -31,6 +31,8 @@ chrome.extension.sendMessage({}, function(response) {
     var speed4Button = document.createElement('button');
     var speed5Button = document.createElement('button');
 
+    var isVisible;
+
     // Create an array of speed buttons
     var speedButtons = [speed1Button, speed2Button, speed3Button, speed4Button, speed5Button];
 
@@ -55,8 +57,18 @@ chrome.extension.sendMessage({}, function(response) {
         chrome.storage.sync.get('currentPlaybackSpeed', function(storage) {
             speedIndicator.textContent = storage.currentPlaybackSpeed;
         });
+
+        chrome.storage.sync.get('isVisible', function(storage) {
+            isVisible = storage.isVisible;
+        });
     }
 
+    // Set visibleDisplay to Chrome storage
+    function setChromeStorageDisplay(isVisible) {
+        chrome.storage.sync.set({'isVisible': isVisible});
+    }
+
+    getChromeStorage();
     var readyStateCheckInterval = setInterval(initializeVideoSpeed, 10);
 
     function initializeVideoSpeed() {
@@ -64,7 +76,6 @@ chrome.extension.sendMessage({}, function(response) {
             clearInterval(readyStateCheckInterval);
 
             settings.videoController = function(target) {
-                getChromeStorage();
 
                 this.video = target;
                 this.initializeControls();
@@ -85,7 +96,9 @@ chrome.extension.sendMessage({}, function(response) {
                 container.appendChild(speedIndicator);
                 container.appendChild(controls);
 
-                container.classList.add('settings-videoController');
+                if (isVisible) {
+                    container.classList.add('settings-videoController');
+                }
                 speedIndicator.classList.add('settings-speedIndicator');
                 controls.classList.add('settings-controls');
 
@@ -96,7 +109,6 @@ chrome.extension.sendMessage({}, function(response) {
                 container.addEventListener('click', function(e) {
                     for (var i = 0; i < speedButtons.length; i++) {
                         if (e.target === speedButtons[i]) {
-                            // var targetSpeed = parseFloat(speedButtons[i].textContent).toFixed(2);
                             var targetSpeed = Number(speedButtons[i].textContent);
                             runAction(targetSpeed);
                             break;
@@ -128,17 +140,17 @@ chrome.extension.sendMessage({}, function(response) {
 
                 // if uppercase letter pressed, check for lowercase key code
                 var keyCode = String.fromCharCode(event.keyCode).toLowerCase();
-                var isVisible = !container.classList.contains('settings-videoController');
+                isVisible = !container.classList.contains('settings-videoController');
 
                 if (keyCode == settings.shortcuts.displaySpeed) {
                     container.classList.toggle('settings-videoController');
-                } else if (!isVisible) {
-                    if (keyCode == settings.shortcuts.shortCut1) runAction(settings.speeds.speedInput1);
-                    if (keyCode == settings.shortcuts.shortCut2) runAction(settings.speeds.speedInput2);
-                    if (keyCode == settings.shortcuts.shortCut3) runAction(settings.speeds.speedInput3);
-                    if (keyCode == settings.shortcuts.shortCut4) runAction(settings.speeds.speedInput4);
-                    if (keyCode == settings.shortcuts.shortCut5) runAction(settings.speeds.speedInput5);
+                    setChromeStorageDisplay(isVisible);
                 }
+                if (keyCode == settings.shortcuts.shortCut1) runAction(settings.speeds.speedInput1);
+                if (keyCode == settings.shortcuts.shortCut2) runAction(settings.speeds.speedInput2);
+                if (keyCode == settings.shortcuts.shortCut3) runAction(settings.speeds.speedInput3);
+                if (keyCode == settings.shortcuts.shortCut4) runAction(settings.speeds.speedInput4);
+                if (keyCode == settings.shortcuts.shortCut5) runAction(settings.speeds.speedInput5);
 
                 return false;
             }, true);

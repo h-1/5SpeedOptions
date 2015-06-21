@@ -3,7 +3,7 @@
 
   "name": "5 Speed Options for HTML5 videos",
   "description": "Allows users to store 5 different speed options and access them with keyboard shortcuts",
-  "version": "1.1",
+  "version": "1.2",
   "homepage_url": "https://github.com/h-1/5SpeedOptions",
   "permissions": ["storage"],
   "options_page": "options.html",
