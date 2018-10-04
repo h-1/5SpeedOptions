@@ -4,6 +4,9 @@ var speedInput2 = document.getElementById('speedInput2');
 var speedInput3 = document.getElementById('speedInput3');
 var speedInput4 = document.getElementById('speedInput4');
 var speedInput5 = document.getElementById('speedInput5');
+var speedInput6 = document.getElementById('speedInput6');
+var speedInput7 = document.getElementById('speedInput7');
+var speedInput8 = document.getElementById('speedInput8');
 
 // Set shortcuts
 var shortCut1 = document.getElementById('shortCut1');
@@ -11,11 +14,14 @@ var shortCut2 = document.getElementById('shortCut2');
 var shortCut3 = document.getElementById('shortCut3');
 var shortCut4 = document.getElementById('shortCut4');
 var shortCut5 = document.getElementById('shortCut5');
+var shortCut6 = document.getElementById('shortCut6');
+var shortCut7 = document.getElementById('shortCut7');
+var shortCut8 = document.getElementById('shortCut8');
 var displaySpeed = document.getElementById('displaySpeed');
 
 // create arrays for speeds and shortcuts
-var speedsArr = [speedInput1, speedInput2, speedInput3, speedInput4, speedInput5];
-var shortcutsArr = [shortCut1, shortCut2, shortCut3, shortCut4, shortCut5, displaySpeed];
+var speedsArr = [speedInput1, speedInput2, speedInput3, speedInput4, speedInput5, speedInput6, speedInput7, speedInput8];
+var shortcutsArr = [shortCut1, shortCut2, shortCut3, shortCut4, shortCut5, shortCut6, shortCut7, shortCut8, displaySpeed];
 
 // Create objects for speeds and shortcuts
 var optionSettings = {
@@ -24,7 +30,10 @@ var optionSettings = {
         speedInput2: 2.5,
         speedInput3: 4,
         speedInput4: 9,
-        speedInput5: 16
+        speedInput5: 16,
+        speedInput6: 1,
+        speedInput7: 1,
+        speedInput8: 1,
     },
     shortcuts: {
         shortCut1: 'a',
@@ -32,6 +41,9 @@ var optionSettings = {
         shortCut3: 'd',
         shortCut4: 'e',
         shortCut5: 'g',
+        shortCut6: '6',
+        shortCut7: '7',
+        shortCut8: '8',
         displaySpeed: '.'
     },
     currentPlaybackSpeed: 1
